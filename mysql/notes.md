@@ -72,4 +72,88 @@ Narrowing Down Select and Delete Statements
 
 	Comparison Operators
 		- more complicated select queries on single table data
-		- they are Key words and symbols
+		- Key words and symbols
+		- https://dev.mysql.com/doc/refman/5.7/en/comparison-operators.html
+		- important common ones -  [=,count,>,<,<=, >=,IS,!=, LIKE, is null (**important = null doesnt work in all versions**)] etc see docs
+		
+
+	Logical Operators(4)
+		- AND, &&
+		- NOT, !
+		- || , OR
+		- XOR
+		- https://dev.mysql.com/doc/refman/5.7/en/logical-operators.html
+		- You may combine operators 
+		- potential ambiguity between conditions , depending on the condition that evaluates to true or false
+		- you can put (  ) to make clear what you're asking to get back. essentially... get rows then filter them further
+		-XOR returns all the rows where either the first condition applies or the second applies. BUT it will not return the rows where both conditions are met or where both conditions are unmet. 
+		-gotcha XOR has to do something or it doesnt. When it reaches a null value it may return more. 
+		- XOR is not used that much but you might need it 
+
+	Beginning Update Statements(CRUD)
+		for example:
+		- update users set name = "Jim" where id = 6
+
+	Order By
+		- select * from users where id < 20 order by name asc/desc 
+		- asc is default
+
+	Limiting Results
+		 - select * from users order by age limit 5	
+		 - limits the first 5 
+		 - select * from users order by age limit 10, 5
+		 - you may offset the query from the specified row for example 5 from 10 onward	
+
+	 Mysql Types
+	 	- optimization involves choosing the right types to making your database as efficient as possible
+	 	- Text(String) Types
+	 			- https://dev.mysql.com/doc/refman/5.7/en/blob.html
+	 			- char (amount of text fixed in length will always occupy same space regardless of content) 
+	 			- varchar (specify a maximum length but wont take the full amount of the length if left unfilled ie variable) binary varbinary blob (binary object that can hold a large amount of data) enum set tinytext text mediumtext longtext
+	 			- blob
+	 	-	Numeric Types
+	 			- Integer
+	 					- Integer int smallint tinyint mediumint bigint
+	 			- fixed point types
+	 					- decimal numeric
+	 			- floating-point types
+	 					- float( gives you an option of specifying the precision of a value. important for scientific data) 
+	 					- double (uses 8 bytes instead of 4 bytes like float hence the name, still allows to set the precision of a value)
+	 					- FLOAT(M,D)  first value describes the number of digits second specifies the number of digits from the decimal point.
+	 					- insert into test (width) values (12.34)
+	 					- these are always approximate values
+	 					- Decimal
+	 							- create table test (value decimal(4, 2))
+	 							- creates a decimal with 4 values 2 after the decimal point
+	 							- insert into test (value) values (12.34) will work
+	 							- insert into test (value) values (12.3) its going to be stored as 12.30... so you will always have two decimal points. 
+	 			
+	 			- bit-value type
+	 					- bit
+	 							- create table test (bitfield bit(4))
+	 							- insert into test(bitfield) values (b '1111')
+	 							- select bin test (bitfield) from test
+
+	 			- BOOL (Boolean)
+	 					- create table products (product varchar(100), available bool default false)
+	 					- insert into products (product, available) values ("electric dog groomer", true)
+
+	 			-BLOB 
+	 					- stores a binary file inside of the BLOB type. things like storing, reading, inserting image into mysql. generally not a good idea. It makes more sense to store images on dis		
+	 					- insert into data (name, data) values ("holiday1.jpg")
+
+	 			-TIME DATE YEAR
+	 					-	select year(now()), time(now()), date(now());;
+	 					- create table (id int primary key auto_increment, year year);	
+
+	 										
+
+
+
+
+
+
+
+
+
+
