@@ -144,7 +144,19 @@ Narrowing Down Select and Delete Statements
 
 	 			-TIME DATE YEAR
 	 					-	select year(now()), time(now()), date(now());;
-	 					- create table (id int primary key auto_increment, year year);	
+	 					- create table moments (id int primary key auto_increment, year year);	
+	 					- insert into moments (theYear, theDate, theTime) values ('2015' , '2014-05-15' , '08:10:23');
+
+	 			-Timestamp and Datetime
+	 					-timestamp goes back to 1970 where DateTime goes back to year 1000		
+	 					-timestamp is like how it sounds. stamps a current moment
+	 					- create table productsss (name varchar(60), sold_at timestamp default now(), received datetime)
+	 					- datetime is an arbitary moment in the past or future
+				-Enumerations
+						- the enum type allows for a choice between values
+						- ex temperature enum('cold', 'hot')
+											
+
 
 	 										
 
