@@ -155,7 +155,71 @@ Narrowing Down Select and Delete Statements
 				-Enumerations
 						- the enum type allows for a choice between values
 						- ex temperature enum('cold', 'hot')
-											
+
+The Distinct Keyword
+	- select distinct * from users
+	- distinct only selects the unique values
+	- select distinct name, age from users
+	- select count(distinct name) from users
+	- 20 vs 17
+
+
+More Aggregate functions
+	- aggregate function on a column will not count null values
+	- https://dev.mysql.com/doc/refman/5.7/en/group-by-functions.html
+	- avg, count max min Sum are pretty much most common
+
+Arithmetic in MySql
+
+	- select avg(age)*10 from users for example
+	- select sum(age)
+
+Grouping results
+	- select avg(weight) from survey group by gender
+	- select country, count(*),  avg(smoke) from survey group by country order by avg(smoke)
+	- able to order by using agregate functions
+	- we cant use a where cause with an agregate functions
+	- this is what having is for
+	- having we use after group by in order to limit results
+	- having must be used after group by
+	- select country, max(weight) from survey group by country having max(weight) > 100 order by max(weight) desc
+	- select country, avg(age) from survey group by country having avg(age) > 40
+
+
+Exercises
+	-- 1. Select all the rows where age is greater than 20 but not less than 30
+-- select * from users where age >= 30;
+-- 2. Select all rows where age is between 20 (inclusive) and 30 (inclusive)
+-- select * from users where age >= 20 and age <= 30;
+-- 3 Select all rows where age is between 20 (inclusive) and 30 (inclusive) and the name is not "Vicky"
+-- select * from users where (age >= 20 and age <=30) and not name = "Vicky";
+-- 4. Select all rows where either the name is null or the name does not contain the letter "e"
+-- select * from users where name = null or name not like "%e%"
+-- 5. Select all rows for users aged between 30 and 40 whether the name contains either the letter "o" or "e"
+-- select * from users where age > 30 and age < 40 and name like "%o,%" or name like "%e%"
+-- 6. Select all rows where either the name contains an "o" or the id is less than 5. but not both 
+-- select * from users where id < 5 xor name like "%o%"
+
+-- Answer using only one SQL query for each question.
+-- 1. Find out the average weight for each country. 
+-- select country, avg(weight) from survey group by country order by avg(weight) desc
+-- 2. Create a list of the number of respondents from each country. Order the list by the number of respondents
+-- Show only those countries where the number of respondents was greater than 3
+-- select country,  count(*) from survey group by  country having count(*) > 3 order by count(*) desc 
+-- 3. Display the average height for each country. Show also the number of respondents for each country and order the list by average height
+-- select country, avg(height), count(*) from survey group by country order by avg(height)
+-- 4. for each country. find the average weight of both men and women in that country and the number of respondents in each gener- country category
+-- Dusplay only those categories containing more than two respondents. Order the results by country
+-- select country, gender, avg(weight), count(*) from survey group by country, gender having count(*) > 2 order by country desc
+-- 5. For each of the possible four answers to the exercise question, display the average health score for the respondents in that group. Order fomr poor health to good health
+-- Is there any relationship between reported amount of exercise and reported state of health? if so why?  
+-- select exercies, avg(health) from survey group by exercise order by health
+
+Naming Columns and Tables
+
+
+
+
 
 
 	 										
