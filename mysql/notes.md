@@ -216,6 +216,20 @@ Exercises
 -- select exercies, avg(health) from survey group by exercise order by health
 
 Naming Columns and Tables
+	- ALIAS (SUPER IMPORTANT)
+			- weight as weight_kg, sugar as sugar_intake_score
+	- The as keyword
+			- select id as survey_id, weight as weight_kg, sugar as sugar_intake_score from survey
+			- 'from survey s' would give us the name s to our query
+			- we are now able to run queries like:
+			- select s.id as survey_id, s.weight as weight_kg, s.sugar as sugar_intake_score from survey s
+
+Foreign Keys
+	- create table person (id int primary key auto_increment, name varchar(50), address_id int, foreign key (address_id) references address(id))
+	- key MUL will tell you it is set
+	- insert into person(name,address_id) values ('Anna', 1) ... etc 
+	
+
 
 
 
