@@ -228,7 +228,63 @@ Foreign Keys
 	- create table person (id int primary key auto_increment, name varchar(50), address_id int, foreign key (address_id) references address(id))
 	- key MUL will tell you it is set
 	- insert into person(name,address_id) values ('Anna', 1) ... etc 
-	
+
+ER Diagrams (Entity Relationship Diagrams)
+	- mysql workbench gives us a really nice way to create these diagrams
+	- database reverse enginer in the gui
+	- this is like a schema designer online but on the workbench... kinda cool I guess
+	- *configuration requires mysql password that is not the one given but the one you set*
+
+Join and Caresian Products
+	- not the best way anymore but still a way that works... ( kinda helps you understand what's really going on behind the scenes)
+	- THe idea is that the person table has an address id column and that column contains ids that are primary keys of the address table 
+	- it enables us to specify an address for any person in the person table we can specify an address an address that is contained in the person table
+	- this allows us to have a many to one relationship. 
+	- many people can share the same address in the adress table
+
+	- We use a join
+		- select * from person
+		- select * from person, address ( the cartesian product an idea brought from mathmatics where you have a set of objects as well as another set of objects. from every object from the first set you combine it from every object from the second set... )
+		- this means that every row from the person table may be combined from the address table
+		- pretty confusing and useless
+		- we really want the address id from the person table that matches the primary key from the address table 
+		- we weed out the ones we dont match while including the ones that do match
+		- but first...
+		- select p.id, p.name, p.address_id, a.id, a.street from person p , address a
+		- select p.id as person_id, p.name, p.address_id as person_address_id, a.id as address_id, a.street from person p , address a
+		- we want to match
+		- we can use where clause 
+		- where p.address_id =a.id
+		- is one way of doing it but may be deprecated and not ideal...
+		- more eloquent solution... 
+		- select p.id as person_id, p.name, p.address_id as person_address_id, a.id as address_id, a.street from person p join address a on a.id = p.address_id
+
+
+Joins On Multiple Tables
+	- select * from drink
+	- allows you to select date from additional tables
+	- join smoke sm on su.smoke = sm.id join exercise e on e.id=su.exercise
+	- for example
+	- select su.id, country, age, sm.question, e.question from survey su join smoke sm on su.smoke=sm.id join exercise e on e.id=su.exercise
+
+
+One to Many and Many to One
+	- the foreign key goes on the many side
+
+Many to Many relationship
+	- will require a join table
+	- create table person_product (person_id int not null, product_id int not null, foreign key (person_id) references person(id), foreign_key (product_id) references product(id))
+	- join table requires two foreign keys that point toward the two primary keys on the corresponding table.
+	- create table person_product (person_id int not null, product_id int not null, 
+foreign key (person_id) references person(id), 
+foreign key (product_id) references product(id))
+
+Joining a table on itself
+	- you are able to have the same table twice in your query and you can give it different names
+	- select * from seats s1 join seats s2 on s1.id=s2.id+1
+
+
+
 
 
 
