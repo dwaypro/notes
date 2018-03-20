@@ -43,4 +43,10 @@ returns => "1050"
 Java converts integer to text and appends 50 to the string lastString.  
 
 
-
+Java operators:
+  - [=,-,+,*,/,%]
+  - more here like ternary and assignment https://www.javatpoint.com/operators-in-java
+  - It's a good idea to put brackets around each condition for precendence and clarification
+  - boolean isCar = false; 
+  - boolean wasCar = isCar ? true : false
+  - : is sort of an otherwise 
