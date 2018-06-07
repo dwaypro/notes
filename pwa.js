@@ -38,7 +38,7 @@
 
 
 
-// Asyncronous Code
+// Asynchronous Code
 
 
 // 1- Javascript is single threaded
@@ -76,3 +76,15 @@ navigator.serviceWorker
 
 //FETCH
 
+//httpbin.org
+    //Rest endpoints that you can send requests to. 
+    //Google Chrome supports fetch() which returns a fetch
+    //it's an asynchronous operation
+fetch('https://httpbin.org/ip')
+  .then(function(response){
+    console.log('response from fetch', response);
+    return response.json();
+  }).then(function(json){
+      console.log('json ==>', json);
+  }
+    
