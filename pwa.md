@@ -21,3 +21,19 @@ var promise = new Promise(function(resolve, reject) {
 promise.then(function(text){
     console.log('executed promise ==>', text)
 });
+
+
+
+Promises in PWAs
+
+When we register a service worker ==>
+
+navigator.serviceWorker
+    .register('/path')
+    .then(function(){
+        console.log('registered!')
+    })
+
+
+
+When we add an event listener to a service worker:    
