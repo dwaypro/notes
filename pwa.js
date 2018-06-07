@@ -86,5 +86,23 @@ fetch('https://httpbin.org/ip')
     return response.json();
   }).then(function(json){
       console.log('json ==>', json);
-  }
+  });
+
+
+
+
+fetch('https://httpbin.org/post', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  },
+  body: JSON.stringify({message: 'Does this work?'})
+})
+  .then(function(response){
+    console.log('response from fetch', response);
+    return response.json();
+  }).then(function(json){
+    console.log('json ==>', json);
+});
     
