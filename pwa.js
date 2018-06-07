@@ -105,4 +105,11 @@ fetch('https://httpbin.org/post', {
   }).then(function(json){
     console.log('json ==>', json);
 });
+
+
+//you can circumvent cors with the option  mode: 'no-cors',
+//there are some cases where this 'empty' response will still be usefull
+// if you want to cache an image from a server that doesn't give you access
+// to the file directly. Some elements are able to access like image tags
+// if the response body was an image
     
