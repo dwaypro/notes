@@ -107,9 +107,30 @@ fetch('https://httpbin.org/post', {
 });
 
 
-//you can circumvent cors with the option  mode: 'no-cors',
+//you can 'circumvent' cors with the option  mode: 'no-cors',
 //there are some cases where this 'empty' response will still be usefull
 // if you want to cache an image from a server that doesn't give you access
 // to the file directly. Some elements are able to access like image tags
 // if the response body was an image
+
+
+
+//FETCH vs AJAX
+
+//whats the difference?
+    //ajax version:
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://httpbin.org/ip');
+xhr.responseType = 'json';
+xhr.onload = function(){
+  console.log('AJAX version', xhr.response);
+}
+xhr.onerror = function(){
+  console.log('error!');
+}
+xhr.send();
+
+//1.) this is more code compared to the one line version from Fetch
+//just to get the data
+//2.) Service workers have to use FETCH because AJAX is synchronous code
     
