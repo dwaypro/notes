@@ -160,8 +160,11 @@ cache.addAll(['/', '/index.html',
   //  
   
   
-  //DYNAMIC CACHING
-
+  //DYNAMIC CACHING(sometimes resources send their own fetch events that we may be interested in)
+       // set an event listener for fetch, respond With the matching cache, above
+       // if there isn't a match handle the fetch event anyways
+       // store into cache by updating with put 
+       // problem with this approach is that we are storing into cache pretty much any fetch
   self.addEventListener('fetch', function(event) {
     event.respondWith(
       caches.match(event.request)
@@ -192,3 +195,14 @@ cache.addAll(['/', '/index.html',
 // relevant javascript files change. 
 // however we still need to handle the multiple caches stored
 caches.open('static-v3.0.4')
+
+//CLEAN UP OLD CACHE
+// in the activate event
+// **Promise.all(); takes an array of promises and waits till they
+// all finish
+// You can convert an array of keys to an array of promises using
+// javascript map operator.
+//return caches.delete(key);
+// caches returns a promise ;) in place of the string we originally passed
+
+
