@@ -133,4 +133,10 @@ xhr.send();
 //1.) this is more code compared to the one line version from Fetch
 //just to get the data
 //2.) Service workers have to use FETCH because AJAX is synchronous code
-    
+
+
+// allows you to 'pause' the javascript cycle until a promise has finished
+event.waitUntil(promise)
+
+
+
