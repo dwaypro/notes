@@ -155,3 +155,40 @@ cache.addAll(['/', '/index.html',
        'https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-pink.min.css',
        ])
 
+
+  // index.html/app.js may create a fetch event, which we may want to store.
+  //  
+  
+  
+  //DYNAMIC CACHING
+
+  self.addEventListener('fetch', function(event) {
+    event.respondWith(
+      caches.match(event.request)
+        .then(function(response){
+          if(response){
+            return response;
+          } else{
+            return fetch(event.request)
+              .then(function(res){
+                return caches.open('dynamic')
+                  .then(function(cache){
+                    cache.put(event.request.url, res.clone())
+                    return res;
+                  });
+              });
+          }
+        })
+    );
+  });
+
+  
+
+//images css javascript and html are what the cache storage is really for 
+// NOT JSON DATA
+//Local Storage might be an ok candidate for Storage
+
+//changing the cache name is a way to update the service worker when
+// relevant javascript files change. 
+// however we still need to handle the multiple caches stored
+caches.open('static-v3.0.4')
