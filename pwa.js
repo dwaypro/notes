@@ -299,3 +299,44 @@ if('caches' in window){
       
     })
   } 
+
+//BIG GOTCHA!!!!
+  //this is markup that is not braught up often in discustion with PWAs or service workers:
+  //could not work:
+<nav class="mdl-navigation mdl-layout--large-screen-only">
+  <a class="mdl-navigation__link" href="/">Feed</a>
+  <a class="mdl-navigation__link" href="/help">Help</a>
+  <a class='navigation__link' href="/test">Test</a>
+  <div class="drawer-option">
+    <button class="enable-notifications mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--accent">
+      Enable Notifications
+    </button>
+  </div>
+</nav>
+
+
+//explanation: service workers from what I've learned store individual files into cache not directories. It is important when you send
+// a 'fetch' request that it corresponds to one that is expected to be returned. 
+// This behavior is different from the Application Cache Api that I'm familiar with, but which is deprec. 
+
+
+//likely does work if both defined and referenced in sw:
+<nav class="mdl-navigation">
+<a class="mdl-navigation__link" href="/">Feed</a>
+<a class="mdl-navigation__link" href="/help/index.html">Help</a>
+<a class='mdl-navigation__link' href="/test/test.html">Test</a>
+<div class="drawer-option">
+  <button class="enable-notifications mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--accent">
+    Enable Notifications
+  </button>
+</div>
+</nav>
+
+
+//before pwa
+<a class="mdl-navigation__link" href="/help">Help</a>
+<a class='navigation__link' href="/test">Test</a>
+
+//after pwa
+<a class="mdl-navigation__link" href="/help/index.html">Help</a>
+<a class='mdl-navigation__link' href="/test/test.html">Test</a>
