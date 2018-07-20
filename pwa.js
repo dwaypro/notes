@@ -261,6 +261,8 @@ self.addEventListener('fetch', function(event) {
         }
       })
     )
+  }
+})
 
 
 // javascript file that uses a url to be used on the service worker i.e orders.js
