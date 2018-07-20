@@ -205,4 +205,14 @@ caches.open('static-v3.0.4')
 //return caches.delete(key);
 // caches returns a promise ;) in place of the string we originally passed
 
-
+//We can cache items based on user input.
+//check to see if the browser has caches 
+function onSaveButtonClicked(event){
+  if('caches' in window){
+  caches.open('user-requested')
+    .then(function(cache){
+      cache.add('https://httbpin.org/get')
+      cache.add('/src/css/images/sf-boat')
+    });
+  }
+}
