@@ -216,3 +216,84 @@ function onSaveButtonClicked(event){
     });
   }
 }
+
+
+//cache first then network strategy:
+
+
+
+
+
+
+//service worker.js file ==> sw.js
+self.addEventListener('fetch', function(event) {
+  var url = 'https://httpbin.org/get';
+  if(event.request.url.indexOf(url) > -1){
+    event.respondWith(
+      caches.open(CACHE_DYNAMIC_NAME)
+        .then(function(cache){
+          return fetch(event.request)
+            .then(function(res){
+              cache.put(event.request, res.clone());
+              return res;
+            });
+        })
+    )
+  }else{
+    event.respondWith(
+      caches.match(event.request)
+      .then(function(response){
+        // console.log('response ==>', response);
+        if(response){
+          return response;
+        } else{
+          return fetch(event.request)
+            .then(function(res){
+              return caches.open(CACHE_DYNAMIC_NAME)
+                .then(function(cache){
+                  cache.put(event.request.url, res.clone())
+                  return res;
+                });
+            })
+            .catch(function(err){
+
+            })
+        }
+      })
+    )
+
+
+// javascript file that uses a url to be used on the service worker i.e orders.js
+
+var url = 'https://httpbin.org/get'
+
+var networkDataReceived = false;
+  
+fetch(url)
+.then(function(res) {
+  return res.json();
+})
+.then(function(data) {
+  networkDataReceived = true;
+  console.log('From web', data);
+  clearCards();
+  createCard();
+});
+
+if('caches' in window){
+  caches.match(url)
+    .then(function(response){
+      console.log('did I get response', response);
+      if (response){
+        return response.json()
+      }
+    })
+    .then(function(data){
+      console.log('from cache', data);
+      if(!networkDataReceived){
+        clearCards();
+        createCard();
+      }
+      
+    })
+  } 
