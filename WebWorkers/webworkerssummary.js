@@ -28,5 +28,36 @@
 // same goes for the web worker. these functions are not available. 
 
 
+//app.js
+if(window.Worker){
+    var myWorker = new Worker('/worker.js');
+    console.log('worker registered ==>', myWorker);
+  
+        myWorker.postMessage(['item1','item2']); // Sending message as an array to the worker
+        console.log('Message posted to worker');
+      
+    myWorker.onmessage = function(e) {
+      console.log('Message received from worker', e.data);
+    }
+  }
+
+// worker.js
+onmessage = function(e) {
+    console.log('Message received from main script', e);
+    var workerResult = {
+    //    data: ['Result:', e ,'second:' , e]
+        data: {'test': [
+            {value:15},13,'15','awesome'
+        ]},
+    }
+    console.log('Posting message back to main script');
+    examplefunction(workerResult)
+    postMessage(workerResult);
+  },
+
+
+examplefunction = function(results){
+    console.log('inside onmessage', results)
+}
 
 
